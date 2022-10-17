@@ -47,3 +47,21 @@ h4 {
 h5 {
   @apply text-xl;
 }
+
+input[type="text"],
+input[type="search"] {
+  @apply border-gray-400;
+  @apply border;
+  @apply px-4;
+  @apply py-2;
+  @apply rounded-lg;
+}
+
+button {
+  @apply bg-red-800;
+  @apply py-4;
+  @apply px-2;
+  @apply text-white;
+  @apply font-bold;
+  @apply rounded-lg;
+}
