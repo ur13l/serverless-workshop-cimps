@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-serverlessworkshop-dev-181853-authRole",
+      "UnauthRoleArn": "arn:aws:iam::208279306203:role/amplify-serverlessworkshop-dev-181853-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::208279306203:role/amplify-serverlessworkshop-dev-181853-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-serverlessworkshop-dev-181853-deployment",
+      "UnauthRoleName": "amplify-serverlessworkshop-dev-181853-unauthRole",
+      "StackName": "amplify-serverlessworkshop-dev-181853",
+      "StackId": "arn:aws:cloudformation:us-east-2:208279306203:stack/amplify-serverlessworkshop-dev-181853/12585310-4e72-11ed-998c-06afa119b4fe",
+      "AmplifyAppId": "d2ex2s6udp8ocg"
+    }
+  }
+}
