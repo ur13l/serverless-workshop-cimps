@@ -1,0 +1,35 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
+type Input {
+  prompt: String
+}
+
+type Urls {
+  get: String
+  cancel: String
+}
+
+type Metrics {
+  predict_time: Float
+}
+
+type Prediction @model {
+  id: ID!
+  version: String!
+  created_at: String
+  started_at: String
+  completed_at: String
+  hardware: String
+  webhook_completed: String
+  source: String
+  status: String!
+  input: Input
+  output: [String]
+  urls: Urls
+  error: String
+  logs: String
+  metrics: Metrics
+}
