@@ -64,7 +64,14 @@ const Home = () => {
           listPredictions: { items },
         },
       } = await API.graphql(graphqlOperation(listPredictions));
-      setPredictions(items);
+      setPredictions(
+        items.sort((a, b) => {
+          const aDate = new Date(a.completed_at);
+          const bDate = new Date(b.completed_at);
+          console.log(aDate, bDate);
+          return bDate.getTime() - aDate.getTime();
+        })
+      );
     };
     get();
   }, []);
