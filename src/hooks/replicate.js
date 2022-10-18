@@ -37,7 +37,13 @@ export const useReplicate = () => {
         },
       }
     );
-    return await res.json();
+    const prediction = await res.json();
+    if (prediction.completed_at) {
+      prediction.created_at = new Date(prediction.created_at);
+      prediction.completed_at = new Date(prediction.completed_at);
+      prediction.started_at = new Date(prediction.started_at);
+    }
+    return prediction;
   };
 
   return { createPrediction, getPrediction };

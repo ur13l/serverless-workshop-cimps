@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useReplicate } from "../hooks/replicate";
 import loadingSvg from "../assets/svg/loading.svg";
+import PredictionsList from "../components/PredictionsList";
+import PredictionItem from "../components/PredictionItem";
+import { API, graphqlOperation } from "aws-amplify";
+import { listPredictions } from "../graphql/queries";
 
 let t;
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState();
   const [loading, setLoading] = useState(false);
-  const [predictionId, setPredictionId] = useState();
-  const [output, setOutput] = useState();
+  const [prediction, setPrediction] = useState();
+  const [predictions, setPredictions] = useState([]);
   const [error, setError] = useState(false);
   const { createPrediction, getPrediction } = useReplicate();
 
@@ -18,38 +22,52 @@ const Home = () => {
   const search = async () => {
     if (searchTerm.length > 3) {
       setLoading(true);
-      setOutput(null);
-      setPredictionId(null);
+      setPrediction(null);
       try {
-        const { id } = await createPrediction(searchTerm);
-        setPredictionId(id);
+        const res = await createPrediction(searchTerm);
+        setPrediction(res);
         setError(false);
       } catch (error) {
         setLoading(false);
         setError(true);
       }
     } else {
-      alert("Introduce un término válido");
+      alert("Introduce un término válido.");
     }
+  };
+
+  const onCreatedPrediction = (prediction) => {
+    setPredictions([prediction, ...predictions]);
   };
 
   /**
    * Set the interval to make calls to the API stable diffusion
    */
   useEffect(() => {
-    if (loading && predictionId) {
+    if (loading && prediction?.id) {
       t = setInterval(async () => {
-        const { completed_at, output } = await getPrediction(predictionId);
-        if (completed_at) {
-          setPredictionId(null);
-          setOutput(output[0]);
+        const res = await getPrediction(prediction.id);
+        if (res.completed_at) {
+          setPrediction(res);
           setLoading(false);
         }
       }, 1000);
     } else {
       clearInterval(t);
     }
-  }, [predictionId, getPrediction, loading]);
+  }, [prediction, getPrediction, loading]);
+
+  useEffect(() => {
+    const get = async () => {
+      const {
+        data: {
+          listPredictions: { items },
+        },
+      } = await API.graphql(graphqlOperation(listPredictions));
+      setPredictions(items);
+    };
+    get();
+  }, []);
 
   return (
     <main className="w-full flex flex-col h-full">
@@ -81,13 +99,20 @@ const Home = () => {
               Buscar
             </button>
           </div>
-          {output && <img src={output} alt={searchTerm} />}
+          {prediction?.output?.length && (
+            <PredictionItem
+              prediction={prediction}
+              onCreatedPrediction={onCreatedPrediction}
+            />
+          )}
           {loading && <img src={loadingSvg} alt="Loading" />}
           {error && (
             <p className="text-red-500 text-xl">
               Hubo un error en la petición, intenta nuevamente.
             </p>
           )}
+          <h2>Predicciones guardadas</h2>
+          <PredictionsList predictions={predictions} />
         </div>
       </section>
     </main>

@@ -10,6 +10,11 @@
       "StackName": "amplify-serverlessworkshop-dev-181853",
       "StackId": "arn:aws:cloudformation:us-east-2:208279306203:stack/amplify-serverlessworkshop-dev-181853/12585310-4e72-11ed-998c-06afa119b4fe",
       "AmplifyAppId": "d2ex2s6udp8ocg"
+    },
+    "categories": {
+      "api": {
+        "serverlessworkshop": {}
+      }
     }
   }
 }
