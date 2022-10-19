@@ -27,7 +27,8 @@ const Home = () => {
         const res = await createPrediction(searchTerm);
         setPrediction(res);
         setError(false);
-      } catch (error) {
+      } catch (e) {
+        console.log(e);
         setLoading(false);
         setError(true);
       }

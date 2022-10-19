@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/predictions/create": {
+      "name": "/predictions/create",
+      "lambdaFunction": "createPrediction",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/predictions/{id}": {
+      "name": "/predictions/{id}",
+      "lambdaFunction": "getPrediction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
