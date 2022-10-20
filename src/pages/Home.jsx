@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Authenticator } from '@aws-amplify/ui-react';
 import { useReplicate } from "../hooks/replicate";
 import loadingSvg from "../assets/svg/loading.svg";
 import PredictionsList from "../components/PredictionsList";
@@ -78,6 +79,8 @@ const Home = () => {
   }, []);
 
   return (
+    <Authenticator>
+      {({ signOut, user }) => (
     <main className="w-full flex flex-col h-full">
       <nav className="h-20 bg-red-800 flex justify-center">
         <div className="container px-4 flex items-center">
@@ -89,6 +92,10 @@ const Home = () => {
           <h1 className="text-red-800">
             Creación de aplicaciones sin servidor en la nube
           </h1>
+          <div className="px-2 relative w-full">
+          <span className="font-bold  ">Bienvenido {user.attributes.email} &nbsp;</span>
+          <button onClick={signOut}>Cerrar Sesión</button>
+          </div>
           <div className="w-full flex gap-4">
             <input
               type="search"
@@ -124,6 +131,8 @@ const Home = () => {
         </div>
       </section>
     </main>
+         )}
+    </Authenticator>
   );
 };
 
