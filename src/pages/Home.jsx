@@ -92,8 +92,8 @@ const Home = () => {
           <h1 className="text-red-800">
             Creación de aplicaciones sin servidor en la nube
           </h1>
-          <div className="px-2 relative flex flex-col">
-          <span className="font-bold w-full ">Bienvenido {user.attributes.email} &nbsp;</span>
+          <div className="px-2 relative w-full">
+          <span className="font-bold  ">Bienvenido {user.attributes.email} &nbsp;</span>
           <button onClick={signOut}>Cerrar Sesión</button>
           </div>
           <div className="w-full flex gap-4">
